@@ -1,0 +1,70 @@
+body {
+  background: #000;
+  color: #fff;
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+h1 {
+  color: #1e90ff;
+  text-align: center;
+}
+
+.add-form input {
+  padding: 5px;
+}
+
+.btn {
+  padding: 5px 10px;
+  border: none;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+.btn.add,
+.btn.blue {
+  background: #1e90ff;
+  color: #fff;
+}
+
+.btn.red {
+  background: #ff4500;
+  color: #fff;
+}
+
+.tasks {
+  list-style: none;
+  padding: 0;
+}
+
+.tasks li {
+  background: #111;
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+}
+
+.tasks li.completed .desc {
+  text-decoration: line-through;
+}
+
+.desc {
+  font-size: 1.2em;
+}
+
+.times {
+  font-size: 0.8em;
+  color: #aaa;
+  margin-top: 4px;
+}
+
+.actions {
+  margin-top: 10px;
+}
