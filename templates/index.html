@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Todo App</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <script defer src="{{ url_for('static', filename='script.js') }}"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>Todo App</h1>
+    <form action="/add" method="post" class="add-form">
+      <input type="text" name="description" placeholder="New task" required>
+      <button type="submit" class="btn add">Add</button>
+    </form>
+    <div class="actions">
+      <button onclick="deleteCompleted()" class="btn red">Delete Completed</button>
+      <button onclick="deleteAll()" class="btn red">Delete All</button>
+    </div>
+
+    <div class="task-section">
+      <h2>Active Tasks</h2>
+      <ul class="tasks">
+        {% for task in active_tasks %}
+        <li>
+          <span class="desc">{{ task.description }}</span>
+          <span class="times">
+            Created: {{ task.created_at.strftime('%Y-%m-%d %H:%M:%S') }}
+          </span>
+          <button onclick="completeTask({{ task.id }})" class="btn blue">Complete</button>
+        </li>
+        {% else %}
+        <li class="empty">No active tasks</li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <div class="task-section">
+      <h2>Completed Tasks</h2>
+      <ul class="tasks">
+        {% for task in completed_tasks %}
+        <li class="completed">
+          <span class="desc">{{ task.description }}</span>
+          <span class="times">
+            Created: {{ task.created_at.strftime('%Y-%m-%d %H:%M:%S') }} |
+            Completed: {{ task.completed_at.strftime('%Y-%m-%d %H:%M:%S') }}
+          </span>
+          <div class="btn-group">
+            <button onclick="undoTask({{ task.id }})" class="btn blue">Undo</button>
+            <button onclick="deleteTask({{ task.id }})" class="btn red">Delete</button>
+          </div>
+        </li>
+        {% else %}
+        <li class="empty">No completed tasks</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</body>
+</html>
