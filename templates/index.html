@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Todo App</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <script defer src="{{ url_for('static', filename='script.js') }}"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>Todo App</h1>
+    <form action="/add" method="post" class="add-form">
+      <input type="text" name="description" placeholder="New task" required>
+      <button type="submit" class="btn add">Add</button>
+    </form>
+    <div class="actions">
+      <button onclick="deleteCompleted()" class="btn red">Delete Completed</button>
+      <button onclick="deleteAll()" class="btn red">Delete All</button>
+    </div>
+    <ul class="tasks">
+      {% for task in tasks %}
+      <li class="{% if task.completed_at %}completed{% endif %}">
+        <span class="desc">{{ task.description }}</span>
+        <span class="times">
+          Created: {{ task.created_at.strftime('%Y-%m-%d %H:%M:%S') }}
+          {% if task.completed_at %}
+          | Completed: {{ task.completed_at.strftime('%Y-%m-%d %H:%M:%S') }}
+          {% endif %}
+        </span>
+        {% if not task.completed_at %}
+        <button onclick="completeTask({{ task.id }})" class="btn blue">Complete</button>
+        {% else %}
+        <button onclick="deleteTask({{ task.id }})" class="btn red">Delete</button>
+        {% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</body>
+</html>
